@@ -4,7 +4,8 @@ class Node:
     """
 
     data = None
-    next_node = None
+    next = None
+    previous = None
 
     # initializing a node
     def __init__(self, data):

@@ -29,8 +29,8 @@ class LinkedList:
     def getLast(self):
         last = self.head
 
-        while last and last.next_node:
-            last = last.next_node
+        while last and last.next:
+            last = last.next
 
         return last
     
@@ -38,8 +38,8 @@ class LinkedList:
     # Removes and returns the first element from the list.
     def removeFirst(self):
         head = self.head
-        self.head = head.next_node
-        head.next_node = None
+        self.head = head.next
+        head.next = None
         return head
     
 
@@ -48,10 +48,10 @@ class LinkedList:
         next_last = None
         last = self.head
 
-        while last and last.next_node:
-            last, next_last = last.next_node, last
+        while last and last.next:
+            last, next_last = last.next, last
 
-        next_last.next_node = None
+        next_last.next = None
         return last
 
 
@@ -60,7 +60,7 @@ class LinkedList:
         element = self.__as_node_(element)
         head, self.head = self.head, element
         if head:
-            element.next_node = head
+            element.next = head
     
 
     # Appends the specified element to the end of this list.
@@ -68,9 +68,9 @@ class LinkedList:
     def addLast(self, element):
         element = self.__as_node_(element)
         last = self.head
-        while last.next_node:
-            last = last.next_node
-        last.next_node = element
+        while last.next:
+            last = last.next
+        last.next = element
 
 
     # Returns true if this list contains the specified element or value.
@@ -81,7 +81,7 @@ class LinkedList:
         while current:
             if current.data == element.data:
                 return True
-            current = current.next_node
+            current = current.next
         
         return False
 
@@ -93,7 +93,7 @@ class LinkedList:
 
         while current:
             count += 1
-            current = current.next_node
+            current = current.next
 
         return count
     
@@ -117,9 +117,9 @@ class LinkedList:
 
             while current:
                 if idx + 1 == index:
-                    element.next_node, current.next_node = current.next_node, element
+                    element.next, current.next = current.next, element
                     return True
-                current = current.next_node
+                current = current.next
                 idx += 1
 
     
@@ -129,12 +129,12 @@ class LinkedList:
         element = self.__as_node__(element)
         current = self.head
 
-        while current and current.next_node:
-            if current.next_node.data == element.data:
-                if current.next_node.next_node:
-                    current.next_node = current.next_node.next_node
+        while current and current.next:
+            if current.next.data == element.data:
+                if current.next.next:
+                    current.next = current.next.next
                 else:
-                    current.next_node = None
+                    current.next = None
                 return True
             
         return False
@@ -149,17 +149,17 @@ class LinkedList:
         start = self.get(index)
         next = None
         if start:
-            next = start.next_node
+            next = start.next
         element = None
         for element in collection:
             element = self.__as_node_(element)
             if start:
-                start.next_node = element
+                start.next = element
             else:
                 self.head = element
             start = element
         if next:
-            element.next_node = next
+            element.next = next
 
 
     # Removes all of the elements from this list. The list will be empty aft this call returns.
@@ -174,7 +174,7 @@ class LinkedList:
         while current:
             if idx == index:
                 return current
-            current = current.next_node
+            current = current.next
             idx += 1
 
         return None
@@ -188,15 +188,15 @@ class LinkedList:
 
         if index == 0:
             head = self.head
-            self.head, element.next_node, head.next_node = element, head.next_node, None
+            self.head, element.next, head.next = element, head.next, None
             return head
         
         while current:
             if idx + 1 == index:
-                replaced, current.next_node = current.next_node, element
-                element.next_node, replaced.next_node = replaced.next_node, None
+                replaced, current.next = current.next, element
+                element.next, replaced.next = replaced.next, None
                 return replaced
-            current = current.next_node
+            current = current.next
             idx += 1
         
         return None
@@ -211,7 +211,7 @@ class LinkedList:
         while current:
             if current.data == element.data:
                 return index
-            current = current.next_node
+            current = current.next
             index += 1
 
         return -1
@@ -230,7 +230,7 @@ class LinkedList:
         while current:
             if current.data == element.data:
                 found = index
-            current = current.next_node
+            current = current.next
             index += 1
 
         return found
@@ -297,5 +297,48 @@ class LinkedList:
     # Pops an element from the stack represented by this list. In other words, remove and returns the first element of this list.
     def pop(self):
         return self.removeLast()
-  
+
+    # Removes the first occurrence of the specified element in the list (when traversing the list from head to tail).
+    # If the list does not contain the element, it is unchanged.
+    def removeFirstOccurrence(self, element):
+        return self.remove(element)
+    
+
+    # Removes the last occurrence of the specified element in the list (when traversing the list from head to tail).
+    # If the list does not contain the element, it is unchanged.
+    def removeLastOccurrence(self, element):
+        element = self.__as_node__(element)
+        found = None
+        current = self.head
+        if current.data == element.data:
+            found = current
+        while current and current.next:
+            if current.next.data == element.data:
+                found = current
+            current = current.next
+        
+        if found:
+            if self.head == found:
+                self.head = found.next
+            else:
+                found.next = found.next.next
+            return True
+        return False
+    
+    # Returns a shallow copy of this LinkedList. (The elements themselves are not cloned.)
+    def clone(self):
+        cloned = LinkedList()
+        cloned.head = self.head
+        return cloned
+    
+    # Returns an array conatin all of the elements in this list in proper sequence (from first to last element)
+    def toArray(self):
+        current = self.head
+        array = []
+        
+        while current:
+            array.append(current.data)
+            current = current.next
+
+        return array
     
