@@ -314,7 +314,7 @@ class LinkedList:
 
     # Pops an element from the stack represented by this list. In other words, remove and returns the first element of this list.
     def pop(self):
-        return self.removeLast()
+        return self.removeFirst()
 
     # Removes the first occurrence of the specified element in the list (when traversing the list from head to tail).
     # If the list does not contain the element, it is unchanged.
