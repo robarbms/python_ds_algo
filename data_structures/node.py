@@ -8,9 +8,9 @@ class Node:
     previous = None
 
     # initializing a node
-    def __init__(self, data):
+    def __init__(self, data) -> None:
         self.data = data
 
     # printing a node
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<Node data: %s>" % self.data

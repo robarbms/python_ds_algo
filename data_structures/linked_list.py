@@ -1,4 +1,5 @@
 from node import Node
+import sys
 
 class LinkedList:
     """
@@ -8,25 +9,40 @@ class LinkedList:
 
     # Constructs a list containing the elements of the specified collection, in the order they are returned by the collection's iterator.
     # Constructs an empty list of no collection is provided
-    def __init__(self, collection=[]):
+    def __init__(self, collection=[]) -> None:
         for element in collection[::-1]:
             self.addFirst(element)
 
 
     # Helper function to ensure that values are converted to nodes
-    def __as_node__(element):
-        if element is not isinstance(Node):
+    def __as_node__(self, element) -> Node:
+        if not isinstance(element, Node):
             element = Node(element)
         return element
+    
+
+    def __repr__(self) -> str:
+        current = self.head
+        nodes = []
+        while current:
+            position = ""
+            if current == self.head:
+                position = "Head: "
+            elif current.next == None:
+                position = "Tail: "
+            nodes.append("[%s%s]" % (position, current.data))
+            current = current.next
+
+        return " -> ".join(nodes)
 
     
     # Returns the first element in this list.
-    def getFirst(self):
+    def getFirst(self) -> Node | None:
         return self.head
     
 
     # Returns the last element in this list.
-    def getLast(self):
+    def getLast(self) -> Node | None:
         last = self.head
 
         while last and last.next:
@@ -36,7 +52,7 @@ class LinkedList:
     
 
     # Removes and returns the first element from the list.
-    def removeFirst(self):
+    def removeFirst(self) -> Node | None:
         head = self.head
         self.head = head.next
         head.next = None
@@ -44,7 +60,7 @@ class LinkedList:
     
 
     # Removes and returns the last element from this list
-    def removeLast(self):
+    def removeLast(self) -> Node | None:
         next_last = None
         last = self.head
 
@@ -56,8 +72,8 @@ class LinkedList:
 
 
     # Inserts the specified element at the beginning of this list.
-    def addFirst(self, element):
-        element = self.__as_node_(element)
+    def addFirst(self, element) -> None:
+        element = self.__as_node__(element)
         head, self.head = self.head, element
         if head:
             element.next = head
@@ -65,8 +81,8 @@ class LinkedList:
 
     # Appends the specified element to the end of this list.
     # This method is equivalent to add(E)
-    def addLast(self, element):
-        element = self.__as_node_(element)
+    def addLast(self, element) -> None:
+        element = self.__as_node__(element)
         last = self.head
         while last.next:
             last = last.next
@@ -74,8 +90,8 @@ class LinkedList:
 
 
     # Returns true if this list contains the specified element or value.
-    def contains(self, element):
-        element = self.__as_node_(element)
+    def contains(self, element) -> bool:
+        element = self.__as_node__(element)
         current = self.head
 
         while current:
@@ -87,7 +103,7 @@ class LinkedList:
 
 
     # Returns the number of elements in this list.
-    def size(self):
+    def size(self) -> int:
         current = self.head
         count = 0
 
@@ -99,11 +115,11 @@ class LinkedList:
     
 
     # Appends the specified element to the end of this list or to a specified position in the list.
-    def add(self, index, element):
-        if not element:
-            element, index = index, self.size() - 1
+    def add(self, index, element = None) -> bool:
+        if element is None:
+            element, index = index, self.size()
 
-        element = self.__as_node_(element)
+        element = self.__as_node__(element)
 
         if index == 0:
             self.addFirst(element)
@@ -122,6 +138,7 @@ class LinkedList:
                 current = current.next
                 idx += 1
 
+        return True
     
     # Removes the first occurrence of the specified element from this list, if it is present.
     # If this list does not contain the element, it is unchanged.
@@ -136,23 +153,24 @@ class LinkedList:
                 else:
                     current.next = None
                 return True
+            current = current.next
             
         return False
 
 
 
     # Inserts all of the elements in the specified collection at an index or to the end of the list in the order that they are returned by the specified collections iterator
-    def addAll(self, index, collection):
+    def addAll(self, index, collection = None):
         if collection is None:
-            collection, index = index, self.size() - 1
+            collection, index = index, self.size()
 
-        start = self.get(index)
+        start = self.get(index - 1)
         next = None
         if start:
             next = start.next
         element = None
         for element in collection:
-            element = self.__as_node_(element)
+            element = self.__as_node__(element)
             if start:
                 start.next = element
             else:
@@ -182,6 +200,8 @@ class LinkedList:
 
     # Replaces the element at the specified position in this list with the specified element.
     def set(self, index, element):
+        if index < 0 or index > self.size():
+            return False
         element = self.__as_node__(element)
         current = self.head
         idx = 0
@@ -215,8 +235,6 @@ class LinkedList:
             index += 1
 
         return -1
-
-
 
 
     # Returns the index of the last occurrence of the specified element in this list,
@@ -341,4 +359,3 @@ class LinkedList:
             current = current.next
 
         return array
-    
