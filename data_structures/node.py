@@ -1,6 +1,6 @@
 class Node:
     """
-    An object for storing a single node of a linked list
+    An object for storing a single node of a data structure
     """
 
     data = None

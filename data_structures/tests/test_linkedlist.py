@@ -1,4 +1,4 @@
-from linked_list import LinkedList
+from linkedlist import LinkedList
 from node import Node
 
 def getList() -> LinkedList:
@@ -198,7 +198,7 @@ def test_pop() -> None:
     list = getList()
     pop = list.pop()
     last = list.getLast()
-    assert pop.data == 5 and last.data == 4 and list.size() == 4
+    assert pop.data == 1 and list.head.data == 2 and list.size() == 4
 
 def test_remove_first_occurence() -> None:
     list = LinkedList()
