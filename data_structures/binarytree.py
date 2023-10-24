@@ -1,12 +1,16 @@
 from node import Node
 
+"""
+Class for creating binary trees
+"""
 class BinaryTree:
-    head = None
+    head: Node = None
 
     def __init__(self):
         pass
 
-    def insert(self, data, node=None):
+    # This logic isn't quite right
+    def insert(self, data, node=None) -> None:
         if node == None:
             node = self.head
             if node == None:

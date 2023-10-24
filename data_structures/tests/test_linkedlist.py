@@ -12,6 +12,10 @@ def getList() -> LinkedList:
 
 def test_create_link_list() -> None:
     link_list = LinkedList()
+    assert isinstance(link_list, LinkedList)
+
+def test_create_empty_ll() -> None:
+    link_list = LinkedList()
     assert link_list.head == None
 
 def test_add() -> None:

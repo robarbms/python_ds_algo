@@ -8,7 +8,7 @@ class Node:
     previous = None
 
     # initializing a node
-    def __init__(self, data) -> None:
+    def __init__(self, data = None) -> None:
         self.data = data
 
     # printing a node

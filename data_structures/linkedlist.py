@@ -358,7 +358,3 @@ class LinkedList:
             current = current.next
 
         return array
-
-ll = LinkedList()
-ll.addAll([1, 2, 3, 4, 5, 6])
-print(ll)
