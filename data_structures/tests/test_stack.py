@@ -51,17 +51,17 @@ def test_pop_returns_node() -> None:
 
 def test_pop_return_value() -> None:
     newStack = Stack()
-    newStack.push("first")
-    newStack.push("second")
-    newStack.push("third")
+    newStack.push(1)
+    newStack.push(2)
+    newStack.push(3)
     popped = newStack.pop()
 
-    assert popped.data == "third"
+    assert popped.data == 3
 
 def test_stack_print() -> None:
     newStack = Stack()
-    newStack.push("first")
-    newStack.push("second")
-    newStack.push("third")
+    newStack.push(1)
+    newStack.push(2)
+    newStack.push(3)
 
-    assert repr(newStack) == "<Node data: third> -> <Node data: second> -> <Node data: first>"
+    assert repr(newStack) == "<Node data: 3> -> <Node data: 2> -> <Node data: 1>"
