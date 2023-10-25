@@ -1,5 +1,5 @@
+from typing import Self
 from node import Node
-
 class Queue:
     """
     Class for creating and managing queues
@@ -23,7 +23,7 @@ class Queue:
     def peek(self) -> Node:
         return self.first
     
-    def enqueue(self, value):
+    def enqueue(self, value) -> Self:
         newNode = Node(value)
         if self.length == 0:
             self.first = newNode
@@ -31,6 +31,7 @@ class Queue:
             self.next = newNode
         self.last = newNode
         self.length += 1
+        return self
 
     def dequeue(self) -> Node:
         if self.length > 0:
@@ -39,3 +40,6 @@ class Queue:
             self.first = dequeued.next
             return dequeued
         return None
+
+    def empty(self) -> Node:
+        return self.length > 0

@@ -1,4 +1,5 @@
 from node import Node
+from typing import Self
 
 class Stack:
     """
@@ -28,7 +29,7 @@ class Stack:
         return self.top
     
     # Pushes a new value to the stack
-    def push(self, value) -> None:
+    def push(self, value) -> Self:
         newNode: Node = Node(value)
         [newNode.next, self.top] = [self.top, newNode]
         self.length += 1
@@ -36,8 +37,8 @@ class Stack:
         
     # Pops the last node added
     def pop(self) -> Node:
-        popNode: Node = self.top
-        self.top = popNode.next
+        popped: Node = self.top
+        self.top = popped.next
         self.length -= 1
-        return popNode
+        return popped
 
