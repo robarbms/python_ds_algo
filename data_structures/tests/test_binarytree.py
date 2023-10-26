@@ -48,7 +48,9 @@ def test_contains_value() -> None:
     tree.insert(5)
     tree.insert(3)
 
-    assert tree.contains(5) == True
+    found = tree.lookup(5)
+    assert isinstance(found, BinaryTreeNode)
+    assert found.value == 5
 
 def test_doesnt_contain_value() -> None:
     tree = BinaryTree()
@@ -56,4 +58,4 @@ def test_doesnt_contain_value() -> None:
     tree.insert(5)
     tree.insert(3)
 
-    assert tree.contains(8) == False
+    assert tree.lookup(8) == False

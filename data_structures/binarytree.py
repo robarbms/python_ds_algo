@@ -8,8 +8,9 @@ class BinaryTree:
 
     # This logic isn't quite right
     def insert(self, value, node=None) -> None:
+        newNode: BinaryTreeNode = BinaryTreeNode(value)
         if self.root == None:
-            self.root = BinaryTreeNode(value)
+            self.root = newNode
             return
         
         if node == None:
@@ -17,29 +18,50 @@ class BinaryTree:
         
         if value < node.value:
             if node.left == None:
-                node.left = BinaryTreeNode(value)
+                node.left = newNode
             else:
                 self.insert(value, node.left)
         else:
             if node.right == None:
-                node.right = BinaryTreeNode(value)
+                node.right = newNode
             else:
                 self.insert(value, node.right)
     
-    def contains(self, value, node = None) -> bool:
+    def lookup(self, value, node = None) -> BinaryTreeNode | bool:
         if node == None:
             node = self.root
         
         if value == node.value:
-            return True
+            return node
         
         if value < node.value:
             if node.value == None:
                 return False
             else:
-                return self.contains(value, node.left)
+                return self.lookup(value, node.left)
         else:
             if node.right == None:
                 return False
             else:
-                return self.contains(value, node.right)
+                return self.lookup(value, node.right)
+            
+    def remove(self, value):
+        if self.root == None:
+            return
+        prev = None
+        curr = self.root
+        while curr.value != value:
+            if curr.value > value:
+                if curr.left == None:
+                    return
+                [curr, prev] = [curr.left, curr]
+            else:
+                if curr.right == None:
+                    return
+                [curr, prev] = [curr.right, curr]
+        
+        right = curr.right
+        left = curr.right.left
+
+        if curr == self.root:
+            self.root = right
