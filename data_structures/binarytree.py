@@ -44,24 +44,3 @@ class BinaryTree:
                 return False
             else:
                 return self.lookup(value, node.right)
-            
-    def remove(self, value):
-        if self.root == None:
-            return
-        prev = None
-        curr = self.root
-        while curr.value != value:
-            if curr.value > value:
-                if curr.left == None:
-                    return
-                [curr, prev] = [curr.left, curr]
-            else:
-                if curr.right == None:
-                    return
-                [curr, prev] = [curr.right, curr]
-        
-        right = curr.right
-        left = curr.right.left
-
-        if curr == self.root:
-            self.root = right
